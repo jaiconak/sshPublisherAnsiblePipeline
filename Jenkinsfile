@@ -5,7 +5,7 @@ pipeline {
         
         stage ('Zip File') {
             steps {
-                sh 'rm -rf *.zip || echo ""'
+                sh 'rm -rf *.zip || echo "Nothing Removed"'
                 sh 'zip -r ansible-${BUILD_NUMBER}.zip * --exclude=Jenkinsfile'
                 sh 'ls -l'
                 sh 'echo "testing-New VcsPipeline"'
