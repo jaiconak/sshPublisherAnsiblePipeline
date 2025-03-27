@@ -20,38 +20,21 @@ pipeline {
         }
 
         stage ('PUSH FILES VIA SSH Ansible') {
-    steps {
-        sh 'whoami'
-        sh 'echo "Checking for files before push"'
-        sh 'ls -l'
-        sshPublisher(publishers: [
-            sshPublisherDesc(
-                configName: 'AnsibleServer',
-                transfers: [
-                    sshTransfer(
-                        cleanRemote: false,
-                        excludes: '',
-                        // Use semicolon or && to separate commands
-                        execCommand: 'export UNZIPOPT="" && unzip -o ansible-${BUILD_NUMBER}.zip && rm -rf ansible-${BUILD_NUMBER}.zip',
-                        execTimeout: 120000,
-                        flatten: false,
-                        makeEmptyDirs: false,
-                        noDefaultExcludes: false,
-                        patternSeparator: '[, ]+',
-                        remoteDirectory: '/home/ec2-user',
-                        remoteDirectorySDF: false,
-                        removePrefix: '',
-                        sourceFiles: "ansible-${BUILD_NUMBER}.zip"
-                    )
-                ],
-                usePromotionTimestamp: false,
-                useWorkspaceInPromotion: false,
-                verbose: false
-            )
-        ])
-    }
-}
+            steps {
+                sh 'whoami'
+                sh 'echo "Checking for files before push"'
+                sh 'ls -l'
+                sshPublisher(publishers: [sshPublisherDesc(configName: \
+                'AnsibleServer', transfers: [sshTransfer(cleanRemote: false, \
+                excludes: '', execCommand: 'unzip ansible-${BUILD_NUMBER}.zip; rm -rf ansible-${BUILD_NUMBER}.zip', execTimeout: 120000, flatten: false, \
+                makeEmptyDirs: false, noDefaultExcludes: false, \
+                patternSeparator: '[, ]+', remoteDirectory: '.', \
+                remoteDirectorySDF: false, removePrefix: '', \
+                sourceFiles: 'ansible-${BUILD_NUMBER}.zip')], usePromotionTimestamp: false, \
+                useWorkspaceInPromotion: false, verbose: false)])
+            }
 
+        }
     }
 
 }
