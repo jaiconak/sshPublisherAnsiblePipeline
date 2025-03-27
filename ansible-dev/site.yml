@@ -1,0 +1,7 @@
+---
+- hosts: wind
+  roles:
+
+  - role: link
+    my_url: https://download.virtualbox.org/virtualbox/7.1.6/VirtualBox-7.1.6-167084-Win.exe
+    dest_path: C:\Users\Administrator\Desktop\Ansible

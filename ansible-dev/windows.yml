@@ -1,0 +1,13 @@
+---
+- hosts: wind
+  tasks:
+    - name: Create a Folder
+      win_file:
+        path: C:\Users\Administrator\Desktop\Jaico
+        state: directory
+    - name: Download file online
+      win_get_url:
+        dest: C:\Users\Administrator\Desktop\Jaico
+        url: https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.14.tar.xz
+
+  

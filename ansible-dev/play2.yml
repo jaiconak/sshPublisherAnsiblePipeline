@@ -1,0 +1,47 @@
+---
+- hosts: ws
+  become: 1 #root user
+  gather_facts: 1
+  ignore_errors: True
+  vars:
+    user_name: "Jaico"
+    group: "ansible_team"
+  vars_files:
+    - variables.yml
+ 
+  tasks:
+    - name: che"ck server uptime
+      command: "{{my_command}}"
+      register: server_uptime
+      
+
+    - name: list directory
+      shell: ls
+    
+    - name: check the kernel version
+      command: uname -r
+      register: kernel_output
+
+    - name: create user
+      user:
+        name: "{{user_name}}"
+
+    - name: create a group
+      group:
+        name: "{{group}}"
+    
+    - name: debug test
+      debug:
+        msg: "Hello from playbook"
+
+    - name: debug var
+      debug:
+        var: user_name
+
+    - name: kernel output
+      debug:
+        var: kernel_output.stdout
+
+    - name: uptime output
+      debug:
+        var: server_uptime.stdout[:19]

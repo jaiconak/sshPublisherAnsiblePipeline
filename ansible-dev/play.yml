@@ -1,0 +1,60 @@
+---
+- hosts: all
+  become: yes #root user 1. True/false 2. 0/1 3. yes/no
+  gather_facts: yes
+
+
+  tasks:
+
+    - name: Install nginx # I want to install nginx on those server hosts^
+      apt:
+        name: nginx
+        state: present    #present means install... absent means uninstall
+        update_cache: yes
+      tags:
+        - apt_get
+      when: ansible_os_family=="Debian"
+
+    - name: Install nginx Redhat
+      yum:
+        name: httpd
+        state: present
+      when: ansible_os_family=="RedHat"  
+
+    - name: Start httpd daemon
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+      when: ansible_os_family=="RedHat"  
+
+    - name: Create User Jaico
+      user:
+        name: Jaico
+        comment: Jaico Seth Nakpil
+        shell: /bin/bash
+
+    - name: Create Group
+      group:
+        name: cloudteam
+        state: present
+      tags:
+        - groupCreate
+
+    - name: Create index file
+      file:
+        path: /var/www/html/index.html
+        state: touch
+      register: file_output
+      tags:
+        - indexCreate
+      
+    - name: Create directory
+      file:
+        path: /temp/os
+        state: directory
+
+    - name: Content to Index File
+      copy:
+        dest: file_output.diff.before.path
+        content: '<h1>This is created using ansible</h1>'

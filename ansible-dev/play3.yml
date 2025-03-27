@@ -1,0 +1,10 @@
+---
+- hosts: ws
+  become: 1           #root user
+  gather_facts: 1
+  ignore_errors: true
+  tasks:
+    - name: Package Installation
+      yum:
+        name: ["wget", "finger", "docker"]
+        state: present
