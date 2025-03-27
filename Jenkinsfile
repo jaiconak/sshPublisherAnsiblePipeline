@@ -32,7 +32,7 @@ pipeline {
                         cleanRemote: false,
                         excludes: '',
                         // Use semicolon or && to separate commands
-                        execCommand: 'unzip ansible-${BUILD_NUMBER}.zip && rm -rf ansible-${BUILD_NUMBER}.zip',
+                        execCommand: 'export UNZIPOPT="" && unzip -o ansible-${BUILD_NUMBER}.zip && rm -rf ansible-${BUILD_NUMBER}.zip',
                         execTimeout: 120000,
                         flatten: false,
                         makeEmptyDirs: false,
