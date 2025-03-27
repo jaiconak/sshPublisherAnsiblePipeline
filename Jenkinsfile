@@ -26,7 +26,9 @@ pipeline {
                 sh 'ls -l'
                 sshPublisher(publishers: [sshPublisherDesc(configName: \
                 'AnsibleServer', transfers: [sshTransfer(cleanRemote: false, \
-                excludes: '', execCommand: 'ls', execTimeout: 120000, flatten: false, \
+                excludes: '', \execCommand: 'unzip ansible-${BUILD_NUMBER}.zip, \
+                rm -rf ansible-${BUILD_NUMBER}.zip', \
+                execTimeout: 120000, flatten: false, \
                 makeEmptyDirs: false, noDefaultExcludes: false, \
                 patternSeparator: '[, ]+', remoteDirectory: '.', \
                 remoteDirectorySDF: false, removePrefix: '', \
