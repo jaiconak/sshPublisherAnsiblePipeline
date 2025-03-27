@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: ws
   become: yes #root user 1. True/false 2. 0/1 3. yes/no
   gather_facts: yes
 
