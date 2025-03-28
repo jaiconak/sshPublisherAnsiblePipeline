@@ -15,7 +15,7 @@ pipeline {
         stage ('Upload to JFrog') {
             steps {
                 sh 'curl -uadmin:cmVmdGtuOjAxOjE3NzQ1NzM1NDM6UGVQRVpRMzFmOUczNDFTR042VHB3NFBTTHox -T ansible-${BUILD_NUMBER}.zip \
-                "http://3.227.247.171:8081/artifactory/ansible/ansible-${BUILD_NUMBER}.zip"'
+                "http://3.238.221.96:8081/artifactory/ansible/ansible-${BUILD_NUMBER}.zip"'
             }
         }
 
